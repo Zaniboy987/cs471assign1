@@ -16,13 +16,13 @@ are interpreted languages.
     d) ^(0+)((1{2\1}))$
 
 4)
-    a)  re := re '|' re 
-        re := re '|' re '*'
-        re := re '|' ( re '*' )
-        re := re '|' '(' re '*' ')'
-        re := re '|' '(' '0' '|' '1' '*' ')'
-        re := '0' '|' '(' '0' '|' '1' '*' ')'
-        re := '0' '|' '1' '*'
+    a)  re := re | re 
+        re := re | re '*'
+        re := re | ( re '*' )
+        re := re | ( re '*' )
+        re := re | ( '0' | '1' '*' )
+        re := '0' | ( '0' | '1' '*' )
+        re := '0' | 1 '*'
 
     b) The grammar's ambiguity leads to two possible ways of parsing 
     the regular expression "01". One way parses it as "0" followed by 
