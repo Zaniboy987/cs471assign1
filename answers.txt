@@ -1,0 +1,102 @@
+1) I have read the Course Syllabus for CS 471, Programming Languages.
+
+2) The statement is true when taking into account the functionalities which
+one progamming lanugage possesses that may be more suited for a particular
+task. Take for instance that in terms of compilation speed, C/C++ is 
+significantly more capable as a in this aspect than Python or Java which 
+are interpreted languages.
+
+3)
+    a) ^(0|1(00)*)$
+
+    b) ^11*(0+)$
+
+    c) ^(0|1)*1011$
+
+    d) ^(0+)((1{2\1}))$
+
+4)
+    a)  re := re '|' re 
+        re := re '|' re '*'
+        re := re '|' ( re '*' )
+        re := re '|' '(' re '*' ')'
+        re := re '|' '(' '0' '|' '1' '*' ')'
+        re := '0' '|' '(' '0' '|' '1' '*' ')'
+        re := '0' '|' '1' '*'
+
+    b) The grammar's ambiguity leads to two possible ways of parsing 
+    the regular expression "01". One way parses it as "0" followed by 
+    "1," while the other one considers it as "(0*1)". This duality 
+    creates uncertainty when trying to define the regular expression 
+    and structure of a given expression.
+
+5) 
+    a)  The left-recursive property of the grammar prevents direct 
+    utilization in a recursive-descent parser. Specifically, the initial
+    production rule (expr := expr | (term | term)) leads to an infinite 
+    loop. In this scenario, the parser continually attempts to match 
+    the first production rule without progressing to the subsequent 
+    rule (term := A | B | C).
+
+    b)  Converting the grammar in this way isn't as effective for 
+    recursive-descent parser. It changes the left-recursion issue into 
+    a right-recursion one. The parser would become stuck in a perpetual 
+    loop while trying to match the second production rule 
+    (expr := term | expr) instead of progressing to the initial 
+    production rule (term = A | B | C).
+
+6)  S -> 0S1 | 1S0 | epsilon
+    S -> (0|1)(0|1)*
+    (0|1)(0|1)*
+
+    With this grammar, string over the alphabet {0, 1} can be formed
+    with alternation, concatenation, etc. The grammar is also left-
+    associative and parentheses override default associativity and 
+    precedence. 
+    For example: S -> (0|1)(0|1)* -> 0(0|1)*1 -> 00(0|1)*1 -> 001           
+
+7) 
+Pseudocode:
+
+    function parseS():
+        parse0()
+        parse1()
+
+    function parse0():
+        # Consume the current token if it's '0' or '1'
+        if current_token is '0' or '1': 
+            consume current_token
+        # error handling
+        else:
+            report_error()
+
+    function parse1():
+        # Continue parsing while current token is '0' or '1'
+        while current_token is '0' or '1':
+            parse0()
+        # epsilon production (do nothing)
+
+8) 
+    a)  expr ::= digit | expr * digit
+        term ::= expr | term + expr
+        digit ::= num | ( term )
+
+    b)  The grammar is left recursive and makes the plus ('+') and mult ('*')
+    operators left associative as well
+
+    c)  term ::= expr | term + expr | term - expr | term * expr | 
+        term / expr (this and above line are one whole)
+        expr ::= digit | (term)
+        digit ::= num
+
+    d)  Code in arith1.c
+
+9)
+    a)  cmd ::= term
+        term ::= expr ( + expr)
+        expr ::= digit ( * digit)
+        digit ::= ( term ) | num
+        num ::= value { value }
+        value ::= '0' | '1' | ... | '9' (includes value 2-8 inbetween)
+
+    b-d) Code in arith2.c
